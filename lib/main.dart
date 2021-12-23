@@ -1,8 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:weather_app/screen_a.dart';
-import 'package:weather_app/screen_b.dart';
-import 'package:weather_app/screen_c.dart';
+import 'package:weather_app/screens/loading.dart';
+
 
 
 void main() {
@@ -17,12 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/',
-      routes: {
-        '/' : (context) => ScreenA(),
-        '/b' : (context) => ScreenB(),
-        '/c' : (context) => ScreenC(),
-      },
+      home: Loading(),
     );
   }
 }
