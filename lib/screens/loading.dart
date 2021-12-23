@@ -4,6 +4,8 @@ import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:weather_app/data/my_location.dart';
 import 'package:weather_app/data/network.dart';
+import 'package:weather_app/screens/weather_screen.dart';
+const apikey = '0d0cc1131b44cd6ea0027e60e69dc007';
 
 class Loading extends StatefulWidget {
 
@@ -32,10 +34,13 @@ class _LoadingState extends State<Loading> {
     debugPrint(latitude3.toString());
     debugPrint(longitude3.toString());
 
-    Network network = Network('https://samples.openweathermap.org/data/2.5/weather?q=London&appid=b1b15e88fa797225412429c1c50c122a1');
+    Network network = Network('https://api.openweathermap.org/data/2.5/weather?lat=$latitude3&lon=$longitude3&appid=$apikey&units=metric');
 
-    var weatherData = network.getJsonData();
+    var weatherData = await network.getJsonData();
     debugPrint(weatherData.toString());
+    Navigator.push(context, MaterialPageRoute(builder: (context){
+      return WeatherScreen(parseWeatherData: weatherData,);
+    }));
   }
 
   // void fetchData() async {
