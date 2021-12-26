@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:intl/intl_browser.dart';
 import 'package:weather_app/model/model.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class WeatherScreen extends StatefulWidget {
   WeatherScreen({this.parseWeatherData, this.parseAirPollution});
@@ -19,14 +20,14 @@ class WeatherScreen extends StatefulWidget {
 
 class _WeatherScreenState extends State<WeatherScreen> {
   Model model = Model();
-  String cityName;
-  int temp;
-  Widget icon;
-  String des;
-  Widget airIcon;
-  Widget airState;
-  double dust1;
-  double dust2;
+  String? cityName;
+  late int temp;
+  late Widget? icon;
+  String? des;
+  late Widget? airIcon;
+  late Widget? airState;
+  double? dust1;
+  double? dust2;
   var date = DateTime.now();
 
   @override
@@ -39,7 +40,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
   void updateData(dynamic weatherData, dynamic airData) {
     double temp2 = weatherData['main']['temp'].toDouble();
     int condition = weatherData['weather'][0]['id'];
-    int index = airData['list'][0]['main']['aqi'];
+    int? index = airData['list'][0]['main']['aqi'];
     des = weatherData['weather'][0]['description'];
     dust1 = airData['list'][0]['components']['pm10'];
     dust2 = airData['list'][0]['components']['pm2_5'];
@@ -145,7 +146,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             ),
                             Row(
                               children: [
-                                icon,
+                                icon!,
                                 SizedBox(
                                   width: 10.0,
                                 ),
@@ -181,12 +182,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               SizedBox(
                                 height: 10.0,
                               ),
-                              airIcon,
+                              airIcon!,
                               SizedBox(
                                 height: 10.0,
                               ),
 
-                              airState
+                              airState!
                             ],
                           ),
                           Column(
