@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/data/my_location.dart';
 import 'package:weather_app/data/network.dart';
 import 'package:weather_app/screens/weather_screen.dart';
+
 const apikey = '0d0cc1131b44cd6ea0027e60e69dc007';
 
 class Loading extends StatefulWidget {
-
-
   @override
   _LoadingState createState() => _LoadingState();
 }
@@ -23,7 +22,6 @@ class _LoadingState extends State<Loading> {
     // TODO: implement initState
     super.initState();
     getLocation();
-
   }
 
   void getLocation() async {
@@ -34,12 +32,19 @@ class _LoadingState extends State<Loading> {
     debugPrint(latitude3.toString());
     debugPrint(longitude3.toString());
 
-    Network network = Network('https://api.openweathermap.org/data/2.5/weather?lat=$latitude3&lon=$longitude3&appid=$apikey&units=metric');
+    Network network = Network(
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude3&lon=$longitude3&appid=$apikey&units=metric',
+        'https://api.openweathermap.org/data/2.5/air_pollution?lat=$latitude3&lon=$longitude3&appid=$apikey&units=metric');
 
     var weatherData = await network.getJsonData();
     debugPrint(weatherData.toString());
-    Navigator.push(context, MaterialPageRoute(builder: (context){
-      return WeatherScreen(parseWeatherData: weatherData,);
+    var airData = await network.getAirData();
+    debugPrint(airData.toString());
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return WeatherScreen(
+        parseWeatherData: weatherData,
+        parseAirPollution: airData,
+      );
     }));
   }
 
